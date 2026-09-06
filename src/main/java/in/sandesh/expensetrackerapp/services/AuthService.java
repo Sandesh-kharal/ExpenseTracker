@@ -3,33 +3,36 @@ package in.sandesh.expensetrackerapp.services;
 import in.sandesh.expensetrackerapp.Dtos.RegisterRequestDto;
 import in.sandesh.expensetrackerapp.Dtos.RegisterResponseDto;
 import in.sandesh.expensetrackerapp.enitites.UserInfo;
-import in.sandesh.expensetrackerapp.enitites.UserRole;
 import in.sandesh.expensetrackerapp.repository.RoleRepository;
 import in.sandesh.expensetrackerapp.repository.UserRepository;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
-public class Authservice {
+public class AuthService {
 
-    private final RoleRepository roleRepository;
+//    private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
 
-    public Authservice(RoleRepository roleRepository, UserRepository userRepository) {
-        this.roleRepository = roleRepository;
+    public AuthService(RoleRepository roleRepository, UserRepository userRepository) {
+//        this.roleRepository = roleRepository;
         this.userRepository = userRepository;
 
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public RegisterResponseDto register(RegisterRequestDto registerRequestDto) {
 
         UserInfo user = new UserInfo();
         user.setUsername(registerRequestDto.getUsername());
-       user.setPassword(registerRequestDto.getPassword());
+        user.setPassword(passwordEncoder.encode(registerRequestDto.getPassword()));
+
 
 
 //        // Fix 2: Match role name with DB naming ("ROLE_USER")
