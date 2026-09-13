@@ -3,7 +3,7 @@ package in.sandesh.expensetrackerapp.controller;
 
 import in.sandesh.expensetrackerapp.Dtos.RegisterRequestDto;
 import in.sandesh.expensetrackerapp.Dtos.RegisterResponseDto;
-import in.sandesh.expensetrackerapp.services.Authservice;
+import in.sandesh.expensetrackerapp.services.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    public AuthController(Authservice authservice) {
+    public AuthController(AuthService authservice) {
         this.authservice = authservice;
     }
 
-    private final Authservice authservice;
+    private final AuthService authservice;
+
+
 
 
     @PostMapping("/register")
